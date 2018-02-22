@@ -30,14 +30,14 @@
 */
 
 class Employee {
-  constructor(first_name, last_name, email, age){
-    this.first_name = first_name
-    this.last_name = last_name
-    this.email = email
-    this.age = age
+  constructor(first_name, last_name, email, age) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.email = email;
+    this.age = age;
   }
-  makeWidget(){
-    return this.first_name +" "+ this.last_name + " Widget"
+  makeWidget() {
+    return this.first_name + " " + this.last_name + " Widget";
   }
 
   // speak() {
@@ -64,21 +64,17 @@ class Employee {
 */
 
 class Manager extends Employee {
-  constructor(first_name, last_name, email, age, reports = []){
-    super(first_name, last_name, email, age)
-    this.reports = reports
+  constructor(first_name, last_name, email, age, reports = []) {
+    super(first_name, last_name, email, age);
+    this.reports = reports;
   }
-  hire(Employee){
-    this.reports.push(Employee)
+  hire(Employee) {
+    this.reports.push(Employee);
+    this.employeeCount++;
   }
-  fire(index){
-    this.reports.splice(index, 1)
+  fire(index) {
+    this.reports.splice(index, 1);
   }
-  
-  // speak() {
-  //   super();
-  //   console.log("i'm a manager");
-  // }
 }
 
 ////////// PROBLEM 3 //////////
@@ -104,29 +100,40 @@ class Manager extends Employee {
 */
 
 class ProgressiveManager extends Manager {
-  constructor(first_name, last_name, email, age, reports = [], title = "Not a manager", bonus=0){
-    super(first_name, last_name, email, age, reports)
-    this.title = title
-    this.bonus = bonus
+  constructor(
+    first_name,
+    last_name,
+    email,
+    age,
+    reports = [],
+    title = "Not a manager",
+    bonus = 0,
+    employeeCount = 0
+  ) {
+    super(first_name, last_name, email, age, reports);
+    this.title = title;
+    this.bonus = bonus;
+    this.employeeCount = employeeCount;
   }
-  hire(Employee){
-  super.hire(Employee)
-  let length = this.reports.length;
-  if(length >= 1 && length <= 3){
-    this.title = "Barely Manager"
-  } else if (length >= 4 && length <= 10){
-    this.title = "Mostly Manager"
-  } else if (length >= 11 && length <= 50){
-    this.title = "Manager"
-  } else if (length >= 51 && length <= 100){
-    this.title = "Manager Plus"
-  } else if (length >= 101){
-    this.title = "Bestest Manager"
+  hire(Employee) {
+    super.hire(Employee);
+    let length = this.employeeCount;
+    if (length >= 1 && length <= 3) {
+      this.title = "Barely Manager";
+    } else if (length >= 4 && length <= 10) {
+      this.title = "Mostly Manager";
+    } else if (length >= 11 && length <= 50) {
+      this.title = "Manager";
+    } else if (length >= 51 && length <= 100) {
+      this.title = "Manager Plus";
+    } else if (length >= 101) {
+      this.title = "Bestest Manager";
+    }
   }
-}
-fire(Employee){
-  super.fire(Employee)
-}
+  fire(index) {
+    this.reports.splice(index, 1);
+    this.bonus += 100;
+  }
 }
 
 ////////// PROBLEM 4 - Black Diamond //////////
@@ -152,6 +159,23 @@ fire(Employee){
         - It should set decrease wear_and_tear_count by 10, and set needs_reboot to false
 */
 
-//Code Here
-
-
+class Machine {
+  constructor(widgets_made_count = 0, wear_and_tear = 0, needs_reboot = false) {
+    this.widgets_made_count = widgets_made_count;
+    this.wear_and_tear = wear_and_tear;
+    this.needs_reboot = needs_reboot;
+  }
+  makeWidgets(number) {
+    this.widgets_made_count += number;
+    this.wear_and_tear += Math.floor(number / 50)
+  }
+  fixMachine() {
+    this.needs_reboot = true;
+  }
+  reboot() {
+    return function() {
+      this.wear_and_tear -= 10;
+      this.needs_reboot = false;
+    };
+  }
+}
