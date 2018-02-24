@@ -70,6 +70,7 @@ let totalPopulation  = populations.reduce(function(accumulator, currentValue, cu
 
 
 
+
 ////////// PROBLEM 4 //////////
 
 // Do not edit the code below.
@@ -93,14 +94,10 @@ const monstersInYourPocket = [{"monster":"Bulbabunny","CP":156},{"monster":"Bulb
 
 //Code Here
 let myStrongest = monstersInYourPocket.filter(function(val, index, arr){
-return val.CP > 200
-}) 
+  return val.CP > 200
+  }) 
 
-// let myStrongest = monstersInYourPocket.filter(monstersInYourPocket=>monstersInYourPocket.CP > 200) 
 
-// function(element, index, wholeArray){}  Function Form
-
-// let evenNumbers  = mixedNumbers.filter(mixedNumbers=>mixedNumbers%2 ===0)
 
 ////////// PROBLEM 5 //////////
 
@@ -115,7 +112,8 @@ const orders = [{"price":15,"tax":0.09},{"price":42,"tax":0.07},{"price":56,"tax
   Use a higher order method to get the sum of all the order totals after adding in the sales tax
 */
 
-let ordersTotal //Code Here
+let ordersTotal = orders.map(function(element){
+  return element.price*(1+element.tax)})
 
 
 
@@ -135,6 +133,25 @@ const purchases = [{"owner":"Barry","price":103},{"owner":"Bob","price":75},
   Use a high order method to create to get the sum of bobsTotal.
 */
 
-let bobsTotal //Code Here
+// let bobsTotal = purchases.filter(purchases=>purchases.owner==="Bob").map(purchases=> purchases.price).reduce(function(totalPrice, val){
+//   return totalPrice + val.price;
+// })
 
+let bobsTotal = purchases.filter(purchases=>purchases.owner==="Bob").map(purchases=> purchases.price).reduce((accumulator, currentValue)=>accumulator + currentValue)
+
+//oh god i don't know how but it worked
+
+
+// let totalPopulation  = populations.reduce(function(accumulator, currentValue, currentIndex, array){
+//   return accumulator + ;
+// }
+// )
+
+// let myStrongest = monstersInYourPocket.filter(function(val, index, arr){
+//   return val.CP > 200
+//   }) 
+
+// With ES6 you can do it very short:
+
+// options.filter(opt => !opt.assigned).map(opt => someNewObject)
 
